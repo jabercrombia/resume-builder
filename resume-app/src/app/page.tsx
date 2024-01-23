@@ -13,6 +13,8 @@ import Education from "./components/form/education";
 
 import MyPdf from "./components/pdf/myPdf";
 
+import { sendGTMEvent } from '@next/third-parties/google'
+
 import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
@@ -71,10 +73,10 @@ export default function Pdf() {
     <h2>Skills</h2>
     <AddSkill formData={formData} register={register} />
 
-    <input type="submit" value="Save Resume" className="bg-white hover:bg-slate-500 cursor-pointer" />
+    <input onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'save resume' })} type="submit" value="Save Resume" className="bg-white hover:bg-slate-500 cursor-pointer" />
   </form>
   <div className="my-5">
-    {isClient && <PDFDownloadLink className="download rounded bg-blue-600 px-2 py-2 hover:bg-blue-200 mb-10" document={<MyPdf formData={formData}/>} fileName={formData?.firstName + "_" + formData?.lastName + ".pdf"}>
+    {isClient && <PDFDownloadLink onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'download pdf' })} className="download rounded bg-blue-600 px-2 py-2 hover:bg-blue-200 mb-10" document={<MyPdf formData={formData}/>} fileName={formData?.firstName + "_" + formData?.lastName + ".pdf"}>
       {({blob, url, loading, error}) =>
         loading ? 'Loading document...' : 'Download PDF'
       }</PDFDownloadLink>
