@@ -15,12 +15,12 @@ export const metadata: Metadata = {
     siteName: 'Resume Builder',
     images: [
       {
-        url: '/resume-builder-thumb.png', // Must be an absolute URL
+        url: '/resume-builder-thumb.jpg', // Must be an absolute URL
         width: 800,
         height: 600,
       },
       {
-        url: '/resume-builder-thumb.png', // Must be an absolute URL
+        url: '/resume-builder-thumb.jpg', // Must be an absolute URL
         width: 1800,
         height: 1600,
         alt: 'My custom alt',
