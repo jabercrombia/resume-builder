@@ -104,14 +104,13 @@ const styles = StyleSheet.create({
   contact: {
     fontSize: 10,
     fontWeight: 300,
-    paddingTop: 10,
-    paddingRight: 10,
-    width: "40%",
-    textAlign: "right",
   },
   link: {
     color: "black",
     textDecoration: "none"
+  },
+  skill: {
+    marginBottom: 5
   }
 });
 export default function myPdf({formData} : {formData:any}) {
@@ -142,32 +141,33 @@ return (
       <Page size="LETTER" style={styles.page}>
         <View style={styles.headerContainer}>
           <View style={styles.name}>
-            <Text style={{fontSize: 34, fontWeight: 400}}>{firstName} </Text>
-            <Text style={{fontSize: 34, fontWeight: 200}}>{lastName}</Text>
-            <Text style={{ fontSize: 12, fontWeight: 200 }}>{title}</Text>
+            <Text style={{ letterSpacing: "-2", lineHeight: "20%", fontSize: 46, fontWeight: 400}}>{firstName} </Text>
+            <Text style={{ letterSpacing: "-2", lineHeight: "-20%", fontSize: 46, fontWeight: 200}}>{lastName}</Text>
+            <Text style={{ fontSize: 12, letterSpacing: 2, fontWeight: 400, textTransform: "uppercase" }}>{title}</Text>
           </View>
-          <View style={styles.contact}>
-            <Text style={{textAlign: "right"}}>{phoneNumber}</Text>
-            <Text style={{textAlign: "right"}}>
+        </View>
+        
+        <View style={styles.wrapContainer}>
+        <View style={styles.sidebar}>
+          <View>
+            <Text style={styles.header}>Contact</Text>  
+            <Text>{phoneNumber}</Text>
+            <Text>
               <Link src={"mailto:"+email} style={styles.link}>{email}</Link>
             </Text>
             <Text>
               <Link src={linkedIn} style={styles.link}>{linkedIn?.replace("https://www.","")}</Link>
             </Text>
           </View>
-        </View>
-        
-        <View style={styles.wrapContainer}>
-        <View style={styles.sidebar}>
           <Text style={styles.header}>About Me</Text>  
-          <Text style={{fontSize: 10}}>{aboutMe}</Text> 
+          <Text>{aboutMe}</Text> 
           <Text style={styles.header}>Education</Text>
-          <Text>{schoolName}</Text>
-          <Text style={{fontSize: 10}}>{degree}</Text>
+          <Text style={{fontWeight: 400}}>{schoolName}</Text>
+          <Text>{degree}</Text>
 
           <Text style={styles.header}>Skills</Text>
           {skills?.map((index : any) => (
-              <Text key={index}>
+              <Text style={styles.skill} key={index}>
                 {index.trim()}
               </Text>
             ))} 
