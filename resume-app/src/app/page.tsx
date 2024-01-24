@@ -95,7 +95,7 @@ export default function Pdf() {
     <input onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'save resume' })} type="submit" value="Save Resume" className="bg-white hover:bg-slate-500 cursor-pointer" />
   </form>
   <div className="my-5">
-    {isClient && <PDFDownloadLink onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'download pdf' })} className="download rounded bg-blue-600 px-2 py-2 hover:bg-blue-200 mb-10" document={<MyPdf formData={formData}/>} fileName={formData?.firstName + "_" + formData?.lastName + ".pdf"}>
+    {isClient && <PDFDownloadLink onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'download pdf' })} className="download bg-slate-100 border-black border-solid border-2 px-2 py-2 hover:bg-slate-200 mb-10" document={<MyPdf formData={formData}/>} fileName={formData?.firstName + "_" + formData?.lastName + ".pdf"}>
       {({blob, url, loading, error}) =>
         loading ? 'Loading document...' : 'Download PDF'
       }</PDFDownloadLink>

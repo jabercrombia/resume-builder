@@ -32,12 +32,13 @@ export default function companyList({fields, append, remove, register}) {
                 <label>Job Description</label>
                 <p className="text-sm">Press enter after each description line</p>
                 <textarea {...register(`list.${index}.jobDescription`)} />
-               
-                <button className="bg-slate-200	 rounded-none px-1 py-2 mt-2 hover:bg-slate-400 text-xs" type="button" onClick={() => remove(index)}>Delete Company</button>
+                <div className="flex flex-row-reverse">
+                  <button className="bg-slate-200	 rounded-none p-2 mt-2 hover:bg-slate-400 text-xs" type="button" onClick={() => remove(index)}>Delete Company</button>
+                </div>
               </div>
             ))}
           
-          <button className="bg-slate-200	rounded-none px-1 py-2 hover:bg-slate-400 text-sm"
+          <button className="bg-slate-200	rounded-none p-2 hover:bg-slate-400 text-sm"
             type="button"
             onClick={() => append({ companyName: "", title: "" , jobDescription: "", currentJob: "", startDate: "", endDate: ""})}
           >

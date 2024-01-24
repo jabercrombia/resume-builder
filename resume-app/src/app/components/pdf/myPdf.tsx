@@ -114,7 +114,7 @@ export default function myPdf({formData} : {formData:any}) {
       sqArr.push(x);
     }
 
-    return sqArr;
+    return sqArr.length == 0 ? sqArr = [''] : sqArr ;
   }
 
 // Create Document Component
