@@ -8,22 +8,23 @@ import Cookies from "universal-cookie";
 
 import Contact from "./components/form/contact";
 import AddCompany from "./components/form/addCompany";
-import AddSkill from "./components/form/addSkill";
+import AddPortfolio from "./components/form/addPortfolio";
+import AddSkills from "./components/form/addSkills";
 import Education from "./components/form/education";
 
 import MyPdf from "./components/pdf/myPdf";
 
 import { sendGTMEvent } from '@next/third-parties/google'
 
-import { Roboto } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 
-const roboto = Roboto({
-    weight: ['100','400','500', '700'],
+
+const openSans = Open_Sans({
+    weight: ['300','400','500', '700'],
     style: ['normal', 'italic'],
     subsets: ['latin'],
     display: 'swap',
   });
-
 export default function Pdf() {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
@@ -33,6 +34,8 @@ export default function Pdf() {
   const cookies = new Cookies(null);
 
   const formData = cookies.get("resume");
+  console.log("----below---");
+  console.log(formData);
 
   const {
     register,
@@ -45,9 +48,12 @@ export default function Pdf() {
     firstName: formData?.firstName,
     lastName: formData?.lastName,
     list: formData?.list,
+    portfolio: formData?.portfolio,
+    skills: formData?.skills
 }})
   const onSubmit = (data : any) => {
     cookies.set("resume", data);
+    console.log(data);
   }
 
   const { fields, append, remove } = useFieldArray({
@@ -55,23 +61,36 @@ export default function Pdf() {
     name: "list"
   });
 
+  const {
+    fields: portfolioFields,
+    append: portfolioAppend,
+    remove: portfolioRemove
+  } = useFieldArray({ control, name: "portfolio" });
+
+  const {
+    fields: skillsFields,
+    append: skillsAppend,
+    remove: skillsRemove
+  } = useFieldArray({ control, name: "skills" });
+
   return (<Layout>
 
-  <form onSubmit={handleSubmit(onSubmit)} className={roboto.className}>
+  <form onSubmit={handleSubmit(onSubmit)} className={openSans.className}>
   <a id="contact"/>
     <h2>Contact</h2>
     <Contact formData={formData} register={register} errors={errors} />
     
-
+    <h2>Portfolio</h2>
+    {isClient &&  <AddPortfolio fields={portfolioFields} append={portfolioAppend} remove={portfolioRemove} register={register} />}
+    
     <h2>Education</h2>
     <Education formData={formData} register={register}/>
 
     <h2>Experience</h2>
     {isClient &&  <AddCompany fields={fields} append={append} remove={remove} register={register} />}
 
-    
     <h2>Skills</h2>
-    <AddSkill formData={formData} register={register} />
+    {isClient &&  <AddSkills fields={skillsFields} append={skillsAppend} remove={skillsRemove} register={register} />}
 
     <input onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'save resume' })} type="submit" value="Save Resume" className="bg-white hover:bg-slate-500 cursor-pointer" />
   </form>

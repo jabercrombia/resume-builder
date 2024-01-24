@@ -3,7 +3,7 @@ import React from "react";
 export default function companyList({fields, append, remove, register}) {
       
       return (
-        <div id="thisisnew" className="mb-5">
+        <div className="mb-5">
           
             {fields?.map((item, index) => (
               <div id={item.id} key={item.id} className="company border-b-[2px] pb-10 mb-5">
@@ -30,6 +30,7 @@ export default function companyList({fields, append, remove, register}) {
                   </div>
                 </div>
                 <label>Job Description</label>
+                <p className="text-sm">Press enter after each description line</p>
                 <textarea {...register(`list.${index}.jobDescription`)} />
                
                 <button className="bg-slate-200	 rounded-none px-1 py-2 mt-2 hover:bg-slate-400 text-xs" type="button" onClick={() => remove(index)}>Delete Company</button>

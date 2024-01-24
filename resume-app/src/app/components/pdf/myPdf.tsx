@@ -1,41 +1,9 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font, Link } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Font, Link, Rect, Svg } from '@react-pdf/renderer';
 import Experience from "../../components/form/experience";
+import {Roboto} from "../../components/fonts/roboto";
 
-Font.register({ 
-    family: 'Roboto', 
-    fonts: [
-        {
-          src: 'https://fonts.gstatic.com/s/roboto/v15/7MygqTe2zs9YkP0adA9QQQ.ttf',
-          fontWeight: 100,
-        },
-        {
-          src: 'https://fonts.gstatic.com/s/roboto/v15/dtpHsbgPEm2lVWciJZ0P-A.ttf',
-          fontWeight: 300,
-        },
-        {
-          src: 'https://fonts.gstatic.com/s/roboto/v15/W5F8_SL0XFawnjxHGsZjJA.ttf',
-          fontWeight: 400,
-        },
-        {
-          src: 'https://fonts.gstatic.com/s/roboto/v15/Uxzkqj-MIMWle-XP2pDNAA.ttf',
-          fontWeight: 500,
-        },
-        {
-          src: 'https://fonts.gstatic.com/s/roboto/v15/W5F8_SL0XFawnjxHGsZjJA.ttf',
-          fontWeight: 600,
-        },
-        {
-          src: 'https://fonts.gstatic.com/s/roboto/v15/bdHGHleUa-ndQCOrdpfxfw.ttf',
-          fontWeight: 700,
-        },
-        {
-          src: 'https://fonts.gstatic.com/s/roboto/v15/H1vB34nOKWXqzKotq25pcg.ttf',
-          fontWeight: 900,
-        },
-      ],
-});
-
+Roboto();
 
 // Create styles
 const styles = StyleSheet.create({
@@ -109,8 +77,11 @@ const styles = StyleSheet.create({
     color: "black",
     textDecoration: "none"
   },
-  skill: {
-    marginBottom: 5
+  skillName: {
+    width: "100%"
+  },
+  bold: {
+    fontWeight: 400
   }
 });
 export default function myPdf({formData} : {formData:any}) {
@@ -122,9 +93,10 @@ export default function myPdf({formData} : {formData:any}) {
   const email = formData?.email;
   const aboutMe = formData?.aboutMe;
   const companyList = formData?.list;
+  const portfolio = formData?.portfolio;
+  const skills = formData?.skills;
   const schoolName = formData?.schoolName;
   const degree = formData?.degree;
-  const skills = formData?.skill?.split(",");
 
   function dateFormat(date : any) {
 
@@ -135,9 +107,19 @@ export default function myPdf({formData} : {formData:any}) {
     return dateFormat;
   }
 
+  function skillValueSquare(num : any){
+    const square = (Math.round(num / 25)*25) / 25;
+    var sqArr = [];
+    for (var x = 0; x < square; x++) {
+      sqArr.push(x);
+    }
+
+    return sqArr;
+  }
+
 // Create Document Component
 return (
-    <Document>
+    <Document creator="https://resume-app-flame.vercel.app/" author={firstName} title={firstName + " " + lastName + " Resume"}>
       <Page size="LETTER" style={styles.page}>
         <View style={styles.headerContainer}>
           <View style={styles.name}>
@@ -158,6 +140,13 @@ return (
             <Text>
               <Link src={linkedIn} style={styles.link}>{linkedIn?.replace("https://www.","")}</Link>
             </Text>
+            <Text style={styles.header}>Portfolio</Text>
+            {portfolio?.map((index : any) => (
+              <View key={index}>
+                <Text style={styles.bold}>{index.portfolioName}</Text>
+                <Link src={index.portfolioLink} style={styles.link}>{index?.portfolioLink?.replace("https://www.","")}</Link>
+              </View>
+            ))} 
           </View>
           <Text style={styles.header}>About Me</Text>  
           <Text>{aboutMe}</Text> 
@@ -166,11 +155,31 @@ return (
           <Text>{degree}</Text>
 
           <Text style={styles.header}>Skills</Text>
-          {skills?.map((index : any) => (
-              <Text style={styles.skill} key={index}>
-                {index.trim()}
-              </Text>
-            ))} 
+      
+            {skills?.map((index : any) => (
+                <View key={index} style={{flexDirection: "row", width: "100%", marginBottom: 5}}>
+                  <View style={{flex: 1, width: "50%", marginRight: 2}}>
+                    <Text style={styles.skillName}>{index.skillName}</Text>
+                  </View>
+                  <View style={{width: "50%", flexDirection: "row", alignItems: "center", paddingLeft: 2}}>
+                    {skillValueSquare(index.skillValue)?.map((index : any) => (
+                      <View key={index} style={{width:10, alignItems: "center", marginRight: 2}}>
+                      <Svg viewBox="0 0 10 10">
+
+                      <Rect
+                        width="10"
+                        height="10"
+                        fill="#ccc"
+                      />
+            
+                    </Svg>
+                    </View>
+                    ))}
+                  
+                  </View>
+                </View>
+              ))} 
+          
         </View>
         <View style={styles.main}>
           <Text style={styles.header}>Experience</Text> 
@@ -182,7 +191,6 @@ return (
                 <View style={{width: "100%",flexDirection: "row",}}>
                   <Text style={styles.title}>{index.title}</Text> 
                   <Text style={styles.date}>{dateFormat(index.startDate)} - {index.currentJob ? "Present" : dateFormat(index.endDate)}</Text>
-
                 </View>
                 <Experience bulletPoint={index.jobDescription}/>
               </View>
