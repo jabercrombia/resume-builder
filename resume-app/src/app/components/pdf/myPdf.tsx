@@ -140,7 +140,10 @@ return (
             <Text>
               <Link src={linkedIn} style={styles.link}>{linkedIn?.replace("https://www.","")}</Link>
             </Text>
+            {portfolio.length > 0 &&
             <Text style={styles.header}>Portfolio</Text>
+            }
+            
             {portfolio?.map((index : any) => (
               <View key={index}>
                 <Text style={styles.bold}>{index.portfolioName}</Text>
@@ -153,8 +156,9 @@ return (
           <Text style={styles.header}>Education</Text>
           <Text style={{fontWeight: 400}}>{schoolName}</Text>
           <Text>{degree}</Text>
-
-          <Text style={styles.header}>Skills</Text>
+          {skills.length > 0 &&
+            <Text style={styles.header}>Skills</Text>
+          }
       
             {skills?.map((index : any) => (
                 <View key={index} style={{flexDirection: "row", width: "100%", marginBottom: 5}}>

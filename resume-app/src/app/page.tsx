@@ -34,8 +34,6 @@ export default function Pdf() {
   const cookies = new Cookies(null);
 
   const formData = cookies.get("resume");
-  console.log("----below---");
-  console.log(formData);
 
   const {
     register,
@@ -53,7 +51,6 @@ export default function Pdf() {
 }})
   const onSubmit = (data : any) => {
     cookies.set("resume", data);
-    console.log(data);
   }
 
   const { fields, append, remove } = useFieldArray({
