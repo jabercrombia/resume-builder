@@ -75,7 +75,7 @@ export default function Pdf() {
   <form onSubmit={handleSubmit(onSubmit)} className={openSans.className}>
   <a id="contact"/>
     <h2>Contact</h2>
-    <Contact formData={formData} register={register} errors={errors} />
+    <Contact formData={formData} register={register} errors={errors} watch={watch} />
     
     <h2>Portfolio</h2>
     {isClient &&  <AddPortfolio fields={portfolioFields} append={portfolioAppend} remove={portfolioRemove} register={register} />}
