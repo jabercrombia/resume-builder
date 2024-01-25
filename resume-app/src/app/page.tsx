@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from 'react';
 import Layout from "./components/form/layout";
-import {PDFDownloadLink, PDFViewer, Document, Page} from "@react-pdf/renderer";
+import {PDFDownloadLink} from "@react-pdf/renderer";
 import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
 import Cookies from "universal-cookie";
 
@@ -51,6 +51,8 @@ export default function Pdf() {
 }})
   const onSubmit = (data : any) => {
     cookies.set("resume", data);
+    () => sendGTMEvent({ event: 'buttonClicked', value: 'save resume' });
+
   }
 
   const { fields, append, remove } = useFieldArray({
@@ -89,7 +91,7 @@ export default function Pdf() {
     <h2>Skills</h2>
     {isClient &&  <AddSkills fields={skillsFields} append={skillsAppend} remove={skillsRemove} register={register} />}
 
-    <input onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'save resume' })} type="submit" value="Save Resume" className="bg-white hover:bg-slate-500 cursor-pointer" />
+    <input type="submit" value="Save Resume" className="bg-white hover:bg-slate-500 cursor-pointer" />
   </form>
   <div className="my-5">
     {isClient && <PDFDownloadLink onClick={() => sendGTMEvent({ event: 'buttonClicked', value: 'download pdf' })} className="download bg-slate-100 border-black border-solid border-2 px-2 py-2 hover:bg-slate-200 mb-10" document={<MyPdf formData={formData}/>} fileName={formData?.firstName + "_" + formData?.lastName + ".pdf"}>

@@ -45,7 +45,9 @@ const styles = StyleSheet.create({
     margin: 0,
     width: "40%",
     padding: 10,
-    fontSize: 10
+    fontSize: 10,
+    backgroundColor: "#eee",
+    minHeight: "100%"
   },
   companyName: {
     fontSize: 14,
@@ -116,6 +118,14 @@ export default function myPdf({formData} : {formData:any}) {
 
     return sqArr.length == 0 ? sqArr = [''] : sqArr ;
   }
+
+  const MyDoc = (
+    <Document>
+      <Page>
+        // My document data
+      </Page>
+    </Document>
+  );
 
 // Create Document Component
 return (
@@ -203,13 +213,7 @@ return (
           </View>
 
         </View>
-
-
-          
         </View>
-
-        
-   
       </Page>
     </Document>
   );
