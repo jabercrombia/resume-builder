@@ -142,7 +142,7 @@ return (
             <Text>
               <Link src={linkedIn} style={styles.link}>{linkedIn?.replace("https://www.","")}</Link>
             </Text>
-            {portfolio.length > 0 &&
+            {portfolio?.length > 0 &&
             <Text style={styles.header}>Portfolio</Text>
             }
             
@@ -158,7 +158,7 @@ return (
           <Text style={styles.header}>Education</Text>
           <Text style={{fontWeight: 400}}>{schoolName}</Text>
           <Text>{degree}</Text>
-          {skills.length > 0 &&
+          {skills?.length > 0 &&
             <Text style={styles.header}>Skills</Text>
           }
       
