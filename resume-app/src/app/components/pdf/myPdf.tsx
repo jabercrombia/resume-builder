@@ -108,7 +108,7 @@ export default function myPdf({formData} : {formData:any}) {
   }
 
   function skillValueSquare(num : any){
-    const square = (Math.round(num / 25)*25) / 25;
+    const square = (Math.round(num / 20)*20) / 20;
     var sqArr = [];
     for (var x = 0; x < square; x++) {
       sqArr.push(x);
