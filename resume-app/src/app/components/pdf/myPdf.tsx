@@ -119,14 +119,6 @@ export default function myPdf({formData} : {formData:any}) {
     return sqArr.length == 0 ? sqArr = [''] : sqArr ;
   }
 
-  const MyDoc = (
-    <Document>
-      <Page>
-        // My document data
-      </Page>
-    </Document>
-  );
-
 // Create Document Component
 return (
     <Document creator="https://resume-app-flame.vercel.app/" author={firstName} title={firstName + " " + lastName + " Resume"}>
