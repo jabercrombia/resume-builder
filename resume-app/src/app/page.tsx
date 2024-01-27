@@ -3,16 +3,20 @@
 import React, {useEffect, useState} from 'react';
 import Layout from "./components/form/layout";
 import {PDFDownloadLink} from "@react-pdf/renderer";
+
 import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
-import Cookies from "universal-cookie";
+import { useCookies } from 'react-cookie';
+import ReactGA from 'react-ga';
 
 import Contact from "./components/form/contact";
 import AddCompany from "./components/form/addCompany";
 import AddPortfolio from "./components/form/addPortfolio";
 import AddSkills from "./components/form/addSkills";
 import Education from "./components/form/education";
+import { initGA, logPageView } from "./components/analytics"; // Import the utility you created
 
 import MyPdf from "./components/pdf/myPdf";
+
 
 import { sendGTMEvent } from '@next/third-parties/google'
 
@@ -28,12 +32,15 @@ const openSans = Open_Sans({
 export default function Pdf() {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
-    setIsClient(true)
+    setIsClient(true);
+    initGA(); // Initialize Google Analytics
+    logPageView(); // Log the initial page view
   }, []);
-  
-  const cookies = new Cookies(null);
 
-  const formData = cookies.get("resume");
+
+  const [cookies, setCookie] = useCookies(['resume']);
+
+  const formData = cookies.resume;
 
   const {
     register,
@@ -45,20 +52,24 @@ export default function Pdf() {
     defaultValues: {
     firstName: formData?.firstName,
     lastName: formData?.lastName,
-    list: formData?.list,
+    companyList: formData?.companyList,
     portfolio: formData?.portfolio,
     skills: formData?.skills
 }})
   const onSubmit = (data : any) => {
-    cookies.set("resume", data);
-    () => sendGTMEvent({ event: 'buttonClicked', value: 'save resume' });
+    console.log('save -----');
+   
+    setCookie("resume", data);
+    console.log(data);
+    console.log('-----get cookie');
+    console.log(cookies.resume);
 
   }
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "list"
-  });
+  const { fields: companyFields, 
+    append: companyAppend, 
+    remove: companyRemove 
+  } = useFieldArray({control, name: "companyList"});
 
   const {
     fields: portfolioFields,
@@ -86,7 +97,7 @@ export default function Pdf() {
     <Education formData={formData} register={register}/>
 
     <h2>Experience</h2>
-    {isClient &&  <AddCompany fields={fields} append={append} remove={remove} register={register} />}
+    {isClient &&  <AddCompany fields={companyFields} append={companyAppend} remove={companyRemove} register={register} />}
 
     <h2>Skills</h2>
     {isClient &&  <AddSkills fields={skillsFields} append={skillsAppend} remove={skillsRemove} register={register} />}

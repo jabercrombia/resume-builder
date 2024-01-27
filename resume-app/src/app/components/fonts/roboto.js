@@ -35,5 +35,8 @@ Font.register({
         },
       ],
 });
-
+Font.registerHyphenationCallback(word => {
+    // Return entire word as unique part
+    return [word];
+  });
 }

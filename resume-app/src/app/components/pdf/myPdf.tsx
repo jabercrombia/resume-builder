@@ -94,7 +94,7 @@ export default function myPdf({formData} : {formData:any}) {
   const linkedIn = formData?.linkedIn;
   const email = formData?.email;
   const aboutMe = formData?.aboutMe;
-  const companyList = formData?.list;
+  const companyList = formData?.companyList;
   const portfolio = formData?.portfolio;
   const skills = formData?.skills;
   const schoolName = formData?.schoolName;
@@ -103,7 +103,7 @@ export default function myPdf({formData} : {formData:any}) {
   function dateFormat(date : any) {
 
     const dateString = new Date(date);
-    const getShortMonth = dateString.toLocaleString('default', { month: 'short' });
+    const getShortMonth = dateString.toLocaleString('en-US', { month: 'short' });
     const dateFormat = getShortMonth.toUpperCase() + " " + dateString.getFullYear();
 
     return dateFormat;
@@ -195,7 +195,7 @@ return (
               <View key={index}>
                 <Text style={styles.companyName}>{index.companyName}</Text>
                 <View style={{width: "100%",flexDirection: "row",}}>
-                  <Text style={styles.title}>{index.title}</Text> 
+                  <Text style={styles.title} wrap={false}>{index.title}</Text> 
                   <Text style={styles.date}>{dateFormat(index.startDate)} - {index.currentJob ? "Present" : dateFormat(index.endDate)}</Text>
                 </View>
                 <Experience bulletPoint={index.jobDescription}/>
