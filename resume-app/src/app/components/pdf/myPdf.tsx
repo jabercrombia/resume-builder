@@ -102,9 +102,13 @@ export default function myPdf({formData} : {formData:any}) {
 
   function dateFormat(date : any) {
 
-    const dateString = new Date(date);
-    const getShortMonth = dateString.toLocaleString('en-US', { month: 'short' });
-    const dateFormat = getShortMonth.toUpperCase() + " " + dateString.getFullYear();
+    const month = ["Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"];
+    const dateSplit = date.split("-");
+    const monthInput = dateSplit[1];
+    const yearInput = dateSplit[0];
+    const getMonth = month[parseInt(monthInput,10)-1];
+
+    const dateFormat = getMonth + " " + yearInput;
 
     return dateFormat;
   }
