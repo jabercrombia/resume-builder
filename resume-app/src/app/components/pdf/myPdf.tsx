@@ -153,7 +153,7 @@ return (
             {portfolio?.map((index : any) => (
               <View key={index}>
                 <Text style={styles.bold}>{index.portfolioName}</Text>
-                <Link src={index.portfolioLink} style={styles.link}>{index?.portfolioLink?.replace("https://www.","")}</Link>
+                <Link src={index.portfolioLink} style={styles.link}>{index?.portfolioDisplayLink}</Link>
               </View>
             ))} 
           </View>

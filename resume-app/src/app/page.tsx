@@ -57,13 +57,7 @@ export default function Pdf() {
     skills: formData?.skills
 }})
   const onSubmit = (data : any) => {
-    console.log('save -----');
-   
     setCookie("resume", data);
-    console.log(data);
-    console.log('-----get cookie');
-    console.log(cookies.resume);
-
   }
 
   const { fields: companyFields, 
