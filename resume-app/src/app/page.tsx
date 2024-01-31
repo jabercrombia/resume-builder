@@ -77,23 +77,23 @@ export default function Pdf() {
     remove: skillsRemove
   } = useFieldArray({ control, name: "skills" });
 
-  return (<Layout>
+  return (
+  <Layout>
+  <form onSubmit={handleSubmit(onSubmit)} className={openSans.className} id="form">
 
-  <form onSubmit={handleSubmit(onSubmit)} className={openSans.className}>
-  <a id="contact"/>
-    <h2>Contact</h2>
+    <h2 id="contact">Contact</h2>
     <Contact formData={formData} register={register} errors={errors} watch={watch} />
     
-    <h2>Portfolio</h2>
+    <h2 id="portfolio">Portfolio</h2>
     {isClient &&  <AddPortfolio fields={portfolioFields} append={portfolioAppend} remove={portfolioRemove} register={register} />}
     
-    <h2>Education</h2>
+    <h2 id="education">Education</h2>
     <Education formData={formData} register={register}/>
 
-    <h2>Experience</h2>
+    <h2 id="experience">Experience</h2>
     {isClient &&  <AddCompany fields={companyFields} append={companyAppend} remove={companyRemove} register={register} />}
 
-    <h2>Skills</h2>
+    <h2 id="skills">Skills</h2>
     {isClient &&  <AddSkills fields={skillsFields} append={skillsAppend} remove={skillsRemove} register={register} />}
 
     <input type="submit" value="Save Resume" className="bg-white hover:bg-slate-500 cursor-pointer" />
