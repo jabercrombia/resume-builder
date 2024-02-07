@@ -25,7 +25,16 @@ import FormProgress from "./components/form/formProgress";
 import { sendGTMEvent } from '@next/third-parties/google'
 
 import { Open_Sans } from 'next/font/google';
-
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { lime, purple } from '@mui/material/colors';
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#FF5733'
+    },
+    secondary: purple,
+  },
+});
 
 const openSans = Open_Sans({
     weight: ['300','400','500', '700'],
@@ -120,11 +129,13 @@ export default function Page() {
       {(formArray[counter] == "skills" && isClient) &&  <AddSkills fields={skillsFields} append={skillsAppend} remove={skillsRemove} register={register} />}
 
      
-      
+      <ThemeProvider theme={theme}>
       <div className="flex justify-center">
         <div className="mx-1"><Button variant="outlined" onClick={backChange} className={counter == 0 ? 'hidden' :''}>Back</Button></div>
-        <div className="mx-1"><Button variant="outlined" onClick={handleSubmit(nextChange)} className={counter > 4 ? 'hidden' :''}>Next</Button></div>
+        <div className="mx-1"><Button variant="contained" onClick={handleSubmit(nextChange)} className={counter > 4 ? 'hidden' :''}>Next</Button></div>
       </div>
+      </ThemeProvider>
+
       {formArray.length == counter &&
       <div className="my-5">
         <p className="text-lg text-center mb-10">Thank you for filling out the Resume Form click Download PDF to download your resume!</p>
