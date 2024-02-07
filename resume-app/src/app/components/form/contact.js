@@ -18,16 +18,9 @@ export default function contact({formData, register, errors, watch}) {
             <input
                 id="email"
                 defaultValue={formData?.email}
-                {...register("email", {
-                  required: "required",
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: "Entered value does not have email format",
-                  },
-                })}
+                {...register("email")}
                 type="email"
               />
-              {errors.email && <span role="alert">{errors.email.message}</span>}
             <label>Phone Number</label>
             <input defaultValue={formData?.phoneNumber} {...register("phoneNumber")} type="tel" />
             <label>LinkedIn</label>

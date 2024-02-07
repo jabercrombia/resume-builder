@@ -26,13 +26,11 @@ import { sendGTMEvent } from '@next/third-parties/google'
 
 import { Open_Sans } from 'next/font/google';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { lime, purple } from '@mui/material/colors';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#FF5733'
-    },
-    secondary: purple,
+      main: '#000'
+    }
   },
 });
 
@@ -76,9 +74,6 @@ export default function Page() {
     setCookie("resume", data);
   }
 
-
-
-
   const { fields: companyFields, 
     append: companyAppend, 
     remove: companyRemove 
@@ -102,16 +97,11 @@ export default function Page() {
 
     const nextChange = ( data: any) => {
       setCounter(counter + 1);
-   
-      console.log(data);
       setCookie("resume", data);
-      
     };
 
     const backChange = () => {
       setCounter(counter - 1);
-      console.log(counter);
-      console.log(formArray[counter]);
     };
     return (
       <Layout>
