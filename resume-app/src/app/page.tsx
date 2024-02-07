@@ -1,13 +1,15 @@
 "use client"
 
 import React, {useEffect, useState} from 'react';
+
+
 import Layout from "./components/form/layout";
 import {PDFDownloadLink} from "@react-pdf/renderer";
 
 import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
+import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
 import ReactGA from 'react-ga';
-
 import Contact from "./components/form/contact";
 import AddCompany from "./components/form/addCompany";
 import AddPortfolio from "./components/form/addPortfolio";
@@ -17,6 +19,8 @@ import { initGA, logPageView } from "./components/analytics"; // Import the util
 
 import MyPdf from "./components/pdf/myPdf";
 
+
+import FormProgress from "./components/form/formProgress";
 
 import { sendGTMEvent } from '@next/third-parties/google'
 
@@ -29,7 +33,8 @@ const openSans = Open_Sans({
     subsets: ['latin'],
     display: 'swap',
   });
-export default function Pdf() {
+
+export default function Page() {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -54,11 +59,16 @@ export default function Pdf() {
     lastName: formData?.lastName,
     companyList: formData?.companyList,
     portfolio: formData?.portfolio,
+    degree: formData?.degree,
+    schoolName: formData?.schoolName,
     skills: formData?.skills
 }})
   const onSubmit = (data : any) => {
     setCookie("resume", data);
   }
+
+
+
 
   const { fields: companyFields, 
     append: companyAppend, 
@@ -77,34 +87,60 @@ export default function Pdf() {
     remove: skillsRemove
   } = useFieldArray({ control, name: "skills" });
 
-  return (
-  <Layout>
-  <form onSubmit={handleSubmit(onSubmit)} className={openSans.className} id="form">
 
-    <h2 id="contact">Contact</h2>
-    <Contact formData={formData} register={register} errors={errors} watch={watch} />
-    
-    <h2 id="portfolio">Portfolio</h2>
-    {isClient &&  <AddPortfolio fields={portfolioFields} append={portfolioAppend} remove={portfolioRemove} register={register} />}
-    
-    <h2 id="education">Education</h2>
-    <Education formData={formData} register={register}/>
+    const formArray = ['contact','portfolio','education','company','skills'];
+    const [counter, setCounter] = useState(0);
 
-    <h2 id="experience">Experience</h2>
-    {isClient &&  <AddCompany fields={companyFields} append={companyAppend} remove={companyRemove} register={register} />}
+    const nextChange = ( data: any) => {
+      setCounter(counter + 1);
+   
+      console.log(data);
+      setCookie("resume", data);
+      
+    };
 
-    <h2 id="skills">Skills</h2>
-    {isClient &&  <AddSkills fields={skillsFields} append={skillsAppend} remove={skillsRemove} register={register} />}
+    const backChange = () => {
+      setCounter(counter - 1);
+      console.log(counter);
+      console.log(formArray[counter]);
+    };
+    return (
+      <Layout>
+      <FormProgress counter={counter}/>
+      <form onSubmit={handleSubmit(onSubmit)} className={openSans.className} id="form">
 
-    <input type="submit" value="Save Resume" className="bg-white hover:bg-slate-500 cursor-pointer" />
-  </form>
-  <div className="my-5">
-    {isClient && <PDFDownloadLink className="download bg-slate-100 border-black border-solid border-2 px-2 py-2 hover:bg-slate-200 mb-10" document={<MyPdf formData={formData}/>} fileName={formData?.firstName + "_" + formData?.lastName + ".pdf"}>
-      {({blob, url, loading, error}) =>
-        loading ? 'Loading document...' : 'Download PDF'
-      }</PDFDownloadLink>
-    }
-    </div>
-  </Layout>
-  )
+      {(formArray[counter] == "contact" && isClient) && <Contact formData={formData} register={register} errors={errors} watch={watch} />}
+      
+      {(formArray[counter] == "portfolio" && isClient) && <AddPortfolio fields={portfolioFields} append={portfolioAppend} remove={portfolioRemove} register={register} />}
+  
+      {(formArray[counter] == "education" && isClient) && <Education formData={formData} register={register}/>}
+
+      {(formArray[counter] == "company" && isClient) &&  <AddCompany fields={companyFields} append={companyAppend} remove={companyRemove} register={register} />}
+
+      {(formArray[counter] == "skills" && isClient) &&  <AddSkills fields={skillsFields} append={skillsAppend} remove={skillsRemove} register={register} />}
+
+     
+      
+      <div className="flex justify-center">
+        <div className="mx-1"><Button variant="outlined" onClick={backChange} className={counter == 0 ? 'hidden' :''}>Back</Button></div>
+        <div className="mx-1"><Button variant="outlined" onClick={handleSubmit(nextChange)} className={counter > 4 ? 'hidden' :''}>Next</Button></div>
+      </div>
+      {formArray.length == counter &&
+      <div className="my-5">
+        <p className="text-lg text-center mb-10">Thank you for filling out the Resume Form click Download PDF to download your resume!</p>
+        <div className="flex justify-center">
+          <div>
+            {isClient && <PDFDownloadLink className="w-1/6 border-black border-solid border-2 px-2 py-2 hover:bg-slate-200 mb-10 rounded" document={<MyPdf formData={formData}/>} fileName={formData?.firstName + "_" + formData?.lastName + ".pdf"}>
+              {({blob, url, loading, error}) =>
+                loading ? 'Loading document...' : 'Download PDF'
+              }</PDFDownloadLink>
+            }
+          </div>
+        </div>
+      </div>
+      }
+      </form>
+
+      </Layout>
+    );
 }

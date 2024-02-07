@@ -1,10 +1,14 @@
 import React from "react";
+import AddButton from "./ui/AddButton";
+import DeleteButton from "./ui/DeleteButton";
 
 export default function companyList({fields, append, remove, register}) {
       
+  const handleAdd = () => append({ companyName: "", title: "" , jobDescription: "", currentJob: "", startDate: "", endDate: ""});
+
       return (
         <div className="mb-5">
-          
+            <h2 className="text-xl">Experience</h2>
             {fields?.map((item, index) => (
               <div id={item.id} key={item.id} className="company border-b-[2px] pb-10 mb-5">
                 <label>Company Name {index + 1}</label>
@@ -33,17 +37,12 @@ export default function companyList({fields, append, remove, register}) {
                 <p className="text-sm">Press enter after each description line.</p>
                 <textarea {...register(`companyList.${index}.jobDescription`)} />
                 <div className="flex flex-row-reverse">
-                  <button className="bg-slate-200	 rounded-none p-2 mt-2 hover:bg-slate-400 text-xs" type="button" onClick={() => remove(index)}>Delete Company</button>
+                  <DeleteButton onClick={() => remove(index)}>Remove Company</DeleteButton>
                 </div>
               </div>
             ))}
           
-          <button className="bg-slate-200	rounded-none p-2 hover:bg-slate-400 text-sm"
-            type="button"
-            onClick={() => append({ companyName: "", title: "" , jobDescription: "", currentJob: "", startDate: "", endDate: ""})}
-          >
-            Add Company
-          </button>
+          <AddButton onClick={handleAdd} >Add Company</AddButton>
         </div>
       );
   }

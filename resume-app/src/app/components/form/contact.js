@@ -6,7 +6,8 @@ export default function contact({formData, register, errors, watch}) {
   characterCount = characterCount?.length;
 
     return (
-        <>
+        <div>
+            <h2>Contact</h2>
             <label>First Name</label>
             <input {...register("firstName")} />
             <label>Last Name</label>
@@ -35,7 +36,7 @@ export default function contact({formData, register, errors, watch}) {
             <p className="text-xs">Character limit: {characterCount} / 500</p>
             <textarea defaultValue={formData?.aboutMe} {...register("aboutMe",{maxLength: 500})} />
             {errors.aboutMe && <p className="text-red-700 text-sm">You are over the 500 character limit.</p>} 
-        </>
+        </div>
       )
       
 };
