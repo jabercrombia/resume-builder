@@ -21,7 +21,7 @@ let stepNumber = counter.counter;
         <Stepper activeStep={stepNumber} alternativeLabel>
             {formArray.map((label) => (
             <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel>{label.toUpperCase()}</StepLabel>
             </Step>
             ))}
         </Stepper>

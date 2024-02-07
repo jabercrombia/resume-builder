@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="bg-white text-black py-3 px-2 mt-2">
         <Header />
       </div>
-      <div className="container mx-auto">
+      <div className="container mx-auto w-9/12">
        
             {children}
 
