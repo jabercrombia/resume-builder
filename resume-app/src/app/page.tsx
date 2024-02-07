@@ -98,6 +98,7 @@ export default function Page() {
     const nextChange = ( data: any) => {
       setCounter(counter + 1);
       setCookie("resume", data);
+      console.log(counter);
     };
 
     const backChange = () => {
