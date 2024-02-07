@@ -1,5 +1,5 @@
 import React from "react";
-import AddButton from "../form/ui/AddButton";
+import AddButton from "../form/ui/addButton";
 import DeleteButton from "../form/ui/deleteButton"
 
 export default function companyList({fields, append, remove, register}) {
