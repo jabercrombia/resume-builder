@@ -98,7 +98,7 @@ export default function Page() {
     const nextChange = ( data: any) => {
       setCounter(counter + 1);
       setCookie("resume", data);
-      console.log(counter);
+
     };
 
     const backChange = () => {
@@ -122,8 +122,8 @@ export default function Page() {
      
       <ThemeProvider theme={theme}>
       <div className="flex justify-center">
-        <div className="mx-1"><Button variant="outlined" onClick={backChange} className={counter == 0 ? 'hidden' :''}>Back</Button></div>
-        <div className="mx-1"><Button variant="contained" onClick={handleSubmit(nextChange)} className={counter > 4 ? 'hidden' :''}>Next</Button></div>
+        <div className={counter == 0 ? "hidden" :"mx-1"}><Button variant="outlined" onClick={backChange}>Back</Button></div>
+        <div className={counter > 4 ? "hidden" :"mx-1"}><Button variant="contained" onClick={handleSubmit(nextChange)}>Next</Button></div>
       </div>
       </ThemeProvider>
 
