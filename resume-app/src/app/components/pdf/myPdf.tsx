@@ -82,6 +82,9 @@ const styles = StyleSheet.create({
   skillName: {
     width: "100%"
   },
+  softwareName: {
+    width: "100%"
+  },
   bold: {
     fontWeight: 400
   }
@@ -97,6 +100,7 @@ export default function myPdf({formData} : {formData:any}) {
   const companyList = formData?.companyList;
   const portfolio = formData?.portfolio;
   const skills = formData?.skills;
+  const software = formData?.software;
   const schoolName = formData?.schoolName;
   const degree = formData?.degree;
 
@@ -113,8 +117,8 @@ export default function myPdf({formData} : {formData:any}) {
     return dateFormat;
   }
 
-  function skillValueSquare(num : any){
-    const square = (Math.round(num / 20)*20) / 20;
+  function valueSquare(num : any){
+    let square = (Math.round(num / 20)*20) / 20;
     var sqArr = [];
     for (var x = 0; x < square; x++) {
       sqArr.push(x);
@@ -163,7 +167,7 @@ return (
           <Text style={{fontWeight: 400}}>{schoolName}</Text>
           <Text>{degree}</Text>
           {skills?.length > 0 &&
-            <Text style={styles.header}>Skills</Text>
+            <Text style={styles.header} break>Skills</Text>
           }
       
             {skills?.map((index : any) => (
@@ -172,7 +176,33 @@ return (
                     <Text style={styles.skillName}>{index.skillName}</Text>
                   </View>
                   <View style={{width: "50%", flexDirection: "row", alignItems: "center", paddingLeft: 2}}>
-                    {skillValueSquare(index.skillValue)?.map((index : any) => (
+                    {valueSquare(index.skillValue)?.map((index : any) => (
+                      <View key={index} style={{width:10, alignItems: "center", marginRight: 2}}>
+                      <Svg viewBox="0 0 10 10">
+
+                      <Rect
+                        width="10"
+                        height="10"
+                        fill="#ccc"
+                      />
+            
+                    </Svg>
+                    </View>
+                    ))}
+                  
+                  </View>
+                </View>
+              ))} 
+          {software?.length > 0 &&
+            <Text style={styles.header} break>Software</Text>
+          }
+              {software?.map((index : any) => (
+                <View key={index} style={{flexDirection: "row", width: "100%", marginBottom: 5}}>
+                  <View style={{flex: 1, width: "50%", marginRight: 2}}>
+                    <Text style={styles.softwareName}>{index.softwareName}</Text>
+                  </View>
+                  <View style={{width: "50%", flexDirection: "row", alignItems: "center", paddingLeft: 2}}>
+                    {valueSquare(index.skillValue)?.map((index : any) => (
                       <View key={index} style={{width:10, alignItems: "center", marginRight: 2}}>
                       <Svg viewBox="0 0 10 10">
 

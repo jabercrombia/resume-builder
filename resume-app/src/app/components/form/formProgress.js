@@ -10,7 +10,7 @@ const steps = [
   'Create an ad',
 ];
 
-const formArray = ['contact','portfolio','education','company','skills'];
+const formArray = ['contact','portfolio','education','company','skills','software'];
 
 export default function HorizontalLinearAlternativeLabelStepper(counter) {
 

@@ -13,6 +13,7 @@ export default function companyList({fields, append, remove, register}) {
               <div id={item.id} key={item.id} className="company border-b-[2px] pb-10 mb-5">
                 <label>Company Name {index + 1}</label>
                 <input {...register(`companyList.${index}.companyName`)} />
+                
                 <label>Title</label>
                 <input {...register(`companyList.${index}.title`)} />
                 <label>Current Job</label>

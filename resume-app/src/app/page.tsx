@@ -1,21 +1,24 @@
 "use client"
 
 import React, {useEffect, useState} from 'react';
+import { useRouter } from 'next/navigation';
 
 
 import Layout from "./components/form/layout";
-import {PDFDownloadLink} from "@react-pdf/renderer";
-
+import {PDFDownloadLink, PDFViewer} from "@react-pdf/renderer";
 import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
 import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
+import Cookies from 'universal-cookie';
+
 import ReactGA from 'react-ga';
 import Contact from "./components/form/contact";
 import AddCompany from "./components/form/addCompany";
 import AddPortfolio from "./components/form/addPortfolio";
 import AddSkills from "./components/form/addSkills";
+import AddSoftware from "./components/form/addSoftware";
 import Education from "./components/form/education";
-import { initGA, logPageView } from "./components/analytics"; // Import the utility you created
+import { initGA, logPageView } from "./components/analytics";
 
 import MyPdf from "./components/pdf/myPdf";
 
@@ -42,6 +45,9 @@ const openSans = Open_Sans({
   });
 
 export default function Page() {
+
+  const router = useRouter();
+
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -50,10 +56,12 @@ export default function Page() {
   }, []);
 
 
+
   const [cookies, setCookie] = useCookies(['resume']);
 
-  const formData = cookies.resume;
-
+  const resumeCookies = new Cookies(null, {path: '/', maxAge: 5*60*1000});
+  let formData = resumeCookies.get("resume");
+  //const getCookie = cookies.get("resume");
   const {
     register,
     handleSubmit,
@@ -70,9 +78,7 @@ export default function Page() {
     schoolName: formData?.schoolName,
     skills: formData?.skills
 }})
-  const onSubmit = (data : any) => {
-    setCookie("resume", data);
-  }
+
 
   const { fields: companyFields, 
     append: companyAppend, 
@@ -91,14 +97,39 @@ export default function Page() {
     remove: skillsRemove
   } = useFieldArray({ control, name: "skills" });
 
+  const {
+    fields: softwareFields,
+    append: softwareAppend,
+    remove: softwareRemove
+  } = useFieldArray({ control, name: "software" });
 
-    const formArray = ['contact','portfolio','education','company','skills'];
+
+    const formArray = ['contact','portfolio','education','company','skills','software'];
     const [counter, setCounter] = useState(0);
+    let currentStep = formArray[counter] ? formArray[counter] : 'done';
 
-    const nextChange = ( data: any) => {
-      setCounter(counter + 1);
+    const onSubmit = (data : any) => {
       setCookie("resume", data);
+      console.log(resumeCookies.get("resume"));
+      console.log('----');
+      console.log(memberData);
+    }
+   
+    const nextChange = ( data: object) => {
+      setCounter(counter + 1);
+      //setCookie("resume", data);
+      //console.log('remove  cookie');
 
+      //resumeCookies.remove("resume");
+
+      //console.log(resumeCookies.get("resume"));
+
+      resumeCookies.set("resume", data);
+      //resumeCookies.addChangeListener("resume");
+      console.log('next clicked');
+      console.log(resumeCookies.get("resume"));
+      console.log('data');
+      console.log(data);
     };
 
     const backChange = () => {
@@ -115,17 +146,21 @@ export default function Page() {
   
       {(formArray[counter] == "education" && isClient) && <Education formData={formData} register={register}/>}
 
-      {(formArray[counter] == "company" && isClient) &&  <AddCompany fields={companyFields} append={companyAppend} remove={companyRemove} register={register} />}
+      {(formArray[counter] == "company" && isClient) &&  <AddCompany fields={companyFields} append={companyAppend} remove={companyRemove} register={register}/>}
 
       {(formArray[counter] == "skills" && isClient) &&  <AddSkills fields={skillsFields} append={skillsAppend} remove={skillsRemove} register={register} />}
 
+      {(formArray[counter] == "software" && isClient) &&  <AddSoftware fields={softwareFields} append={softwareAppend} remove={softwareRemove} register={register} />}
      
       <ThemeProvider theme={theme}>
       <div className="flex justify-center">
         <div className={counter == 0 ? "hidden" :"mx-1"}><Button variant="outlined" onClick={backChange}>Back</Button></div>
-        <div className={counter > 4 ? "hidden" :"mx-1"}><Button variant="contained" onClick={handleSubmit(nextChange)}>Next</Button></div>
+        <div className={counter > formArray.length -1 ? "hidden" :"mx-1"}><Button variant="contained" onClick={handleSubmit(nextChange)}>Next</Button></div>
       </div>
       </ThemeProvider>
+ 
+      <input type="submit" />
+      </form>
 
       {formArray.length == counter &&
       <div className="my-5">
@@ -139,10 +174,11 @@ export default function Page() {
             }
           </div>
         </div>
+        <PDFViewer width={600} height={900} className="my-10 mx-auto">
+          <MyPdf formData={formData}/>
+        </PDFViewer>
       </div>
       }
-      </form>
-
       </Layout>
     );
 }
