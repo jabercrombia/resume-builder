@@ -4,7 +4,7 @@ import DeleteButton from "../form/ui/deleteButton"
 
 export default function softwareList({fields, append, remove, register}) {
 
-  const handleAdd = () => append({ softwarelName: "", softwareValue: ""});
+  const handleAdd = () => append({ softwareName: "", softwareValue: ""});
 
       return (
         <div className="mb-5">

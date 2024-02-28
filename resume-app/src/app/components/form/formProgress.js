@@ -16,7 +16,7 @@ export default function HorizontalLinearAlternativeLabelStepper(counter) {
 
 let stepNumber = counter.counter;
   return (
-    <div className="mb-5">
+    <div className="mb-5 overflow-auto">
         <Box sx={{ width: '100%' }}>
         <Stepper activeStep={stepNumber} alternativeLabel>
             {formArray.map((label) => (

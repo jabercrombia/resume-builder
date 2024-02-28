@@ -202,7 +202,7 @@ return (
                     <Text style={styles.softwareName}>{index.softwareName}</Text>
                   </View>
                   <View style={{width: "50%", flexDirection: "row", alignItems: "center", paddingLeft: 2}}>
-                    {valueSquare(index.skillValue)?.map((index : any) => (
+                    {valueSquare(index.softwareValue)?.map((index : any) => (
                       <View key={index} style={{width:10, alignItems: "center", marginRight: 2}}>
                       <Svg viewBox="0 0 10 10">
 

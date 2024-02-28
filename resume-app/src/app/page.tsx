@@ -55,13 +55,20 @@ export default function Page() {
     logPageView(); // Log the initial page view
   }, []);
 
+let item = "";
+  //const item = sessionStorage.getItem('resume') || '';
+  if (typeof localStorage !== 'undefined') {
+    item = localStorage.getItem('resume') || "";
+  } else if (typeof sessionStorage !== 'undefined') {
+    // Fallback to sessionStorage if localStorage is not supported
+    item = sessionStorage.getItem('resume') || "";
+  } else {
+    // If neither localStorage nor sessionStorage is supported
+    console.log('Web Storage is not supported in this environment. loading');
+  }
 
+const formData = item ? JSON.parse(item) : null;
 
-  const [cookies, setCookie] = useCookies(['resume']);
-
-  const resumeCookies = new Cookies(null, {path: '/', maxAge: 5*60*1000});
-  let formData = resumeCookies.get("resume");
-  //const getCookie = cookies.get("resume");
   const {
     register,
     handleSubmit,
@@ -106,30 +113,22 @@ export default function Page() {
 
     const formArray = ['contact','portfolio','education','company','skills','software'];
     const [counter, setCounter] = useState(0);
-    let currentStep = formArray[counter] ? formArray[counter] : 'done';
-
-    const onSubmit = (data : any) => {
-      setCookie("resume", data);
-      console.log(resumeCookies.get("resume"));
-      console.log('----');
-      console.log(memberData);
-    }
    
     const nextChange = ( data: object) => {
       setCounter(counter + 1);
-      //setCookie("resume", data);
-      //console.log('remove  cookie');
+     
+      //sessionStorage.setItem("resume", JSON.stringify(data));
 
-      //resumeCookies.remove("resume");
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('resume', JSON.stringify(data));
+      } else if (typeof sessionStorage !== 'undefined') {
+        // Fallback to sessionStorage if localStorage is not supported
+        sessionStorage.setItem('resume', JSON.stringify(data));
+      } else {
+        // If neither localStorage nor sessionStorage is supported
+        console.log('Web Storage is not supported in this environment. next');
+      }
 
-      //console.log(resumeCookies.get("resume"));
-
-      resumeCookies.set("resume", data);
-      //resumeCookies.addChangeListener("resume");
-      console.log('next clicked');
-      console.log(resumeCookies.get("resume"));
-      console.log('data');
-      console.log(data);
     };
 
     const backChange = () => {
@@ -138,7 +137,7 @@ export default function Page() {
     return (
       <Layout>
       <FormProgress counter={counter}/>
-      <form onSubmit={handleSubmit(onSubmit)} className={openSans.className} id="form">
+      <form className={openSans.className} id="form">
 
       {(formArray[counter] == "contact" && isClient) && <Contact formData={formData} register={register} errors={errors} watch={watch} />}
       
@@ -159,7 +158,6 @@ export default function Page() {
       </div>
       </ThemeProvider>
  
-      <input type="submit" />
       </form>
 
       {formArray.length == counter &&

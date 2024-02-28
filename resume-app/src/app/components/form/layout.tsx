@@ -4,11 +4,11 @@ import Footer from "../../components/footer";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <div className="container mx-auto w-screen	">
       <div className="bg-white text-black py-3 px-2 mt-2">
         <Header />
       </div>
-      <div className="container mx-auto w-9/12">
+      <div className="container mx-auto md:w-9/12 px-2">
        
             {children}
 
