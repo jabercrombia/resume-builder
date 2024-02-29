@@ -18,7 +18,7 @@ import Education from "./components/form/education";
 import { initGA, logPageView, buttonTracking } from "./components/analytics";
 
 import MyPdf from "./components/pdf/myPdf";
-import FormProgress from "./components/form/formProgress";
+import ProgressBar from "./components/form/progressBar";
 
 import { Open_Sans } from 'next/font/google';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -122,7 +122,7 @@ const formData = item ? JSON.parse(item) : null;
     };
     return (
       <Layout>
-      <FormProgress counter={counter}/>
+      <ProgressBar value={counter} />
       <form className={openSans.className} id="form">
 
       {(formArray[counter] == "contact" && isClient) && <Contact formData={formData} register={register} errors={errors} watch={watch} />}

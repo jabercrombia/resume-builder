@@ -12,12 +12,12 @@ export default function softwareList({fields, append, remove, register}) {
             <p className="text-xs">optional</p>
             {fields?.map((item, index) => (
               <div id={item.id} key={item.id}>
-                <div  className="flex flex-row company">
-                  <div className="self-end basis-1/2 p-1">
+                <div  className="flex flex-col md:flex-row company">
+                  <div className="md:self-end basis-full md:basis-1/2 p-1">
                     <label>Software Name</label>
                     <input {...register(`software.${index}.softwareName`)} />
                   </div>
-                  <div className="self-end basis-1/2 p-1">
+                  <div className="md:self-end basis-full md:basis-1/2 p-1">
                     <label>Software Numerical Value</label>
                     <p className="text-xs pb-1">Numberical value out of 100 you would base your skill on.</p>
                     <input type="number" {...register(`software.${index}.softwareValue`)} />    
