@@ -1,12 +1,5 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer';
 
-const styles = StyleSheet.create({
-    unorderedList : {
-        marginBottom: 10,
-        fontSize: 10
-    }
-});
-
 export default function bulletPoints({bulletPoint}) {
 
     const bulletPt = bulletPoint.split("\n");
@@ -15,7 +8,7 @@ export default function bulletPoints({bulletPoint}) {
       return (
       <View style={{ flexDirection: "row", marginBottom: 5 }} key={index} wrap={false}>
         <Text style={{ marginRight: 5 }}>{'\u2022'}</Text>
-        <Text style={{fontSize: 11}}>{jobDescriptionText}</Text>
+        <Text style={{fontSize: 10}}>{jobDescriptionText}</Text>
       </View>
     )
     });

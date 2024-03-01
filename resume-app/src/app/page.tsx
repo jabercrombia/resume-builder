@@ -17,7 +17,7 @@ import AddSoftware from "./components/form/addSoftware";
 import Education from "./components/form/education";
 import { initGA, logPageView, buttonTracking } from "./components/analytics";
 
-import MyPdf from "./components/pdf/myPdf";
+import MyPdf from "./components/pdf/pdfTemplate";
 import ProgressBar from "./components/form/progressBar";
 
 import { Open_Sans } from 'next/font/google';
