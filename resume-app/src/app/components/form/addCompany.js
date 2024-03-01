@@ -16,9 +16,11 @@ export default function companyList({fields, append, remove, register}) {
                 
                 <label>Title</label>
                 <input {...register(`companyList.${index}.title`)} />
-                <label>Current Job</label>
-                <div className="inline-block pl-5">
-                <input type="checkbox" {...register(`companyList.${index}.currentJob`)}/>
+                <label className="flex items-center"> Current Job 
+                <input className="flex-none w-5 mb-0" type="checkbox" {...register(`companyList.${index}.currentJob`)}/>
+                </label>
+                <div className="pl-5">
+                
 
                 </div>
                 <div className="flex flex-row">
