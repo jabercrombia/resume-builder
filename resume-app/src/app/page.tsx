@@ -114,7 +114,7 @@ const formData = item ? JSON.parse(item) : null;
       } else {
         console.log('Web Storage is not supported in this environment.');
       }
-      buttonTracking("next");
+      buttonTracking("next: " + formArray[counter + 1]);
     };
 
     const backChange = () => {
