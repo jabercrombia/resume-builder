@@ -151,9 +151,7 @@ const formData = item ? JSON.parse(item) : null;
         <div className="flex justify-center">
           <div>
             {isClient && <PDFDownloadLink className="w-1/6 border-black border-solid border-2 px-2 py-2 hover:bg-slate-200 mb-10 rounded" document={<MyPdf formData={formData}/>} fileName={formData?.firstName + "_" + formData?.lastName + ".pdf"}>
-              {({blob, url, loading, error}) =>
-                loading ? 'Loading document...' : 'Download PDF'
-              }</PDFDownloadLink>
+            Download PDF</PDFDownloadLink>
             }
           </div>
         </div>
