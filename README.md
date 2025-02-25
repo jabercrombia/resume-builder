@@ -104,6 +104,18 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 ---
 
+## Screenshots
+
+<!-- Add screenshots of your application here -->
+**Resume Download Page**:
+   ![Resume Complete](/resume-app/src/images/download-complete.png)
+
+[**Download Sample PDF**](/resume-app/src/images/sample.pdf)
+
+
+
+---
+
 ## Acknowledgments
 
 - [Next.js Documentation](https://nextjs.org/docs)
