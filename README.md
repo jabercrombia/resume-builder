@@ -3,7 +3,6 @@
 A modern and user-friendly web application for creating, customizing, and downloading professional resumes. Built with **Next.js**, **Tailwind CSS**, **Material-UI (MUI)**, **React Hook Form**, and **React PDF**.
 
 <p style="text-align:center"><img src="https://resume-app-flame.vercel.app/resume-builder-thumb.jpg" width="400"/></p>
-## Features
 
 - **Dynamic Resume Form**: Input personal details, work experience, education, skills, and more using a clean and intuitive form powered by **React Hook Form**.
 - **Real-Time Preview**: Instantly preview your resume as you fill out the form.
