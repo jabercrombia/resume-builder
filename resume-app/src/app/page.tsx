@@ -140,7 +140,7 @@ const formData = item ? JSON.parse(item) : null;
       <ThemeProvider theme={theme}>
       <div className="flex justify-center">
         <div className={counter == 0 ? "hidden" :"mx-1"}><Button variant="outlined" onClick={backChange}>Back</Button></div>
-        <div className={counter > formArray.length -1 ? "hidden" :"mx-1"}><Button variant="contained" onClick={handleSubmit(nextChange)}>Next</Button></div>
+        <div className={counter > formArray.length -1 ? "hidden" :"mx-1"}><Button variant="outlined" onClick={handleSubmit(nextChange)}>Next</Button></div>
       </div>
       </ThemeProvider>
       </form>
