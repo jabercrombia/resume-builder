@@ -120,6 +120,12 @@ const formData = item ? JSON.parse(item) : null;
     const backChange = () => {
       setCounter(counter - 1);
     };
+
+    const buttonStyle = {
+      color: 'black',
+      borderColor: 'white',
+      backgroundColor: 'rgba(255 255 255 0.4)'
+    };
     return (
       <Layout>
       <ProgressBar value={counter} />
@@ -139,8 +145,8 @@ const formData = item ? JSON.parse(item) : null;
      
       <ThemeProvider theme={theme}>
       <div className="flex justify-center">
-        <div className={counter == 0 ? "hidden" :"mx-1"}><Button variant="outlined" onClick={backChange}>Back</Button></div>
-        <div className={counter > formArray.length -1 ? "hidden" :"mx-1"}><Button variant="outlined" onClick={handleSubmit(nextChange)}>Next</Button></div>
+        <div className={counter == 0 ? "hidden" :"mx-1"}><Button variant="outlined" onClick={backChange} style={buttonStyle}>Back</Button></div>
+        <div className={counter > formArray.length -1 ? "hidden" :"mx-1"}><Button variant="outlined" onClick={handleSubmit(nextChange)}  style={buttonStyle}>Next</Button></div>
       </div>
       </ThemeProvider>
       </form>

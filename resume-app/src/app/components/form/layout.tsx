@@ -5,7 +5,7 @@ import Footer from "../../components/footer";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="container mx-auto w-screen	">
-      <div className="bg-white text-black py-3 px-2 mt-2">
+      <div className=" text-black py-3 px-2 mt-2">
         <Header />
       </div>
       <div className="container mx-auto md:w-9/12 px-2">

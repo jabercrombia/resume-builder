@@ -34,6 +34,11 @@ export const metadata: Metadata = {
   }
 }
 
+const backgroundImageStyle = {
+  backgroundSize: 'cover',
+  backgroundImage: 'url(./background.jpg)',
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -41,7 +46,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className} style={backgroundImageStyle}>{children}</body>
     </html>
   )
 }
