@@ -35,8 +35,9 @@ export const metadata: Metadata = {
 }
 
 const backgroundImageStyle = {
-  backgroundSize: 'cover',
   backgroundImage: 'url(./background.jpg)',
+  backgroundAttachment: 'fixed', 
+  backgroundSize: '100% 100%'
 };
 
 export default function RootLayout({
