@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://resume-app-flame.vercel.app/'),
   title: 'Resume Builder',
   icons: {
-    icon: '/favicon.jpg',
+    icon: '/favicon.ico',
   },
   description: 'A Resume builder built on the NextJS Framework',
   openGraph: {
